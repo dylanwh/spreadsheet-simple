@@ -4,20 +4,33 @@ use Moose;
 our $VERSION = '0.01';
 our $AUTHORITY = 'cpan:DHARDISON';
 
-use MooseX::Types::Path::Class;
+use MooseX::AttributeHelpers;
+use MooseX::Types::Moose 'ArrayRef';
+use Spreadsheet::Simple::Sheet;
 
-has 'filename' => (
-    is       => 'ro',
-    isa      => 'Path::Class::File',
-    required => 1,
-    coerce   => 1,
-);
+use namespace::clean -except => 'meta';
 
 has 'sheets' => (
+	metaclass  => 'Collection::Array',
     is         => 'ro',
-    isa        => 'ArrayRef[Spreadsheet::Simple::Sheet]',
+    isa        => ArrayRef['Spreadsheet::Simple::Sheet'],
     lazy_build => 1,
+    auto_deref => 1,
+    provides => {
+    	'push' => 'add_sheet',
+    },
 );
+
+sub new_sheet {
+	my ($self, @args) = @_;
+	my $sheet = Spreadsheet::Simple::Sheet->new(@args);
+
+	$self->add_sheet( $sheet );
+
+	return $sheet;
+}
+
+sub _build_sheets { [] }
 
 1; # End of Spreadsheet::Simple
 
@@ -31,13 +44,9 @@ Version 0.01
 
 =head1 SYNOPSIS
 
-Quick summary of what the module does.
-
-Perhaps a little code snippet.
-
     use Spreadsheet::Simple;
 
-    my $s = Spreadsheet::Simple->new(filename => "foo.xls");
+    my $s = Spreadsheet::Simple->new;
 
 
 =head1 BUGS
