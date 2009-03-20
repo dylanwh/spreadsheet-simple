@@ -4,20 +4,24 @@ use Moose;
 our $VERSION = '0.01';
 our $AUTHORITY = 'cpan:DHARDISON';
 
+use Scalar::Util 'looks_like_number';
+
 use MooseX::AttributeHelpers;
 use MooseX::Types::Moose 'ArrayRef';
+
 use Spreadsheet::Simple::Sheet;
 
 use namespace::clean -except => 'meta';
 
 has 'sheets' => (
 	metaclass  => 'Collection::Array',
-    is         => 'ro',
+	is         => 'ro',
     isa        => ArrayRef['Spreadsheet::Simple::Sheet'],
     lazy_build => 1,
     auto_deref => 1,
     provides => {
     	'push' => 'add_sheet',
+    	'get'  => 'get_sheet',
     },
 );
 
@@ -28,6 +32,20 @@ sub new_sheet {
 	$self->add_sheet( $sheet );
 
 	return $sheet;
+}
+
+sub find_sheet {
+	my ($self, $name) = @_;
+	if (looks_like_number($name)) {
+		return $self->get_sheet($name);
+	}
+	else {
+		my $lname = lc $name;
+
+		foreach my $sheet ($self->sheets) {
+			return $sheet if lc $sheet->name eq $lname;
+		}
+	}
 }
 
 sub _build_sheets { [] }

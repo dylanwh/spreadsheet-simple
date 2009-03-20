@@ -4,15 +4,16 @@ use Moose;
 our $VERSION = '0.01';
 our $AUTHORITY = 'cpan:DHARDISON';
 
-use Spreadsheet::Simple::Cell;
+use Spreadsheet::Simple::Types 'Cells';
 
 use namespace::clean -except => 'meta';
 
 has 'cells' => (
     is         => 'ro',
-    isa        => 'ArrayRef[Spreadsheet::Simple::Cell]',
-    lazy_build => 1,
+    isa        => Cells,
     auto_deref => 1,
+    required   => 1,
+    coerce     => 1,
 );
 
 1;
