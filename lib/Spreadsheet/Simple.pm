@@ -4,57 +4,27 @@ use Moose;
 our $VERSION = '0.01';
 our $AUTHORITY = 'cpan:DHARDISON';
 
-use Scalar::Util 'looks_like_number';
-
-use MooseX::AttributeHelpers;
-use MooseX::Types::Moose 'ArrayRef';
-
-use Spreadsheet::Simple::Sheet;
-
 use namespace::clean -except => 'meta';
 
-has 'sheets' => (
-	metaclass  => 'Collection::Array',
-	is         => 'ro',
-    isa        => ArrayRef['Spreadsheet::Simple::Sheet'],
+has 'reader' => (
+    is         => 'ro',
+    does       => 'Spreadsheet::Simple::Role::Reader',
     lazy_build => 1,
-    auto_deref => 1,
-    provides => {
-    	'push' => 'add_sheet',
-    	'get'  => 'get_sheet',
-    },
+    handles    => ['read_file'],
 );
 
-sub new_sheet {
-	my ($self, @args) = @_;
-	my $sheet = Spreadsheet::Simple::Sheet->new(@args);
+has 'writer' => (
+    is         => 'ro',
+    does       => 'Spreadsheet::Simple::Role::Writer',
+    lazy_build => 1,
+    handles    => ['write_file'],
+);
 
-	$self->add_sheet( $sheet );
-
-	return $sheet;
-}
-
-sub find_sheet {
-	my ($self, $name) = @_;
-	if (looks_like_number($name)) {
-		return $self->get_sheet($name);
-	}
-	else {
-		my $lname = lc $name;
-
-		foreach my $sheet ($self->sheets) {
-			return $sheet if lc $sheet->name eq $lname;
-		}
-	}
-}
-
-sub _build_sheets { [] }
-
-1; # End of Spreadsheet::Simple
+1;
 
 =head1 NAME
 
-Spreadsheet::Simple - The great new Spreadsheet::Simple!
+Spreadsheet::Simple- Simple spreadsheet API.
 
 =head1 VERSION
 

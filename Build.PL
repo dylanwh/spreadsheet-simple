@@ -9,6 +9,9 @@ my $builder = Module::Build->new(
     dist_version_from   => 'lib/Spreadsheet/Simple.pm',
     build_requires => {
         'Test::More' => 0,
+        'Spreadsheet::ParseExcel' => '0.49',
+        'MooseX::Types'           => '0.08',
+        'MooseX::AttributeHelpers' => '0.14',
     },
     add_to_cleanup      => [ 'Spreadsheet-Simple-*' ],
     create_makefile_pl => 'traditional',

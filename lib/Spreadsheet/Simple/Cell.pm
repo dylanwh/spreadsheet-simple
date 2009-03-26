@@ -8,7 +8,7 @@ use MooseX::Types::Moose 'Maybe', 'Str';
 
 use namespace::clean -except => 'meta';
 
-has 'data' => (
+has 'value' => (
     is       => 'rw',
     isa      => Maybe[Str],
     required => 1,

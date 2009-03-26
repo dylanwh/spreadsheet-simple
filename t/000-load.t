@@ -2,10 +2,11 @@
 
 use warnings;
 use strict;
-use Test::More tests => 4;
+use Test::More tests => 5;
 
 BEGIN {
 	use_ok( 'Spreadsheet::Simple' );
+	use_ok( 'Spreadsheet::Simple::Document' );
 	use_ok( 'Spreadsheet::Simple::Sheet' );
 	use_ok( 'Spreadsheet::Simple::Row' );
 	use_ok( 'Spreadsheet::Simple::Cell' );

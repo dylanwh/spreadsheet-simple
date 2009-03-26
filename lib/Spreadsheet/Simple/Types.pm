@@ -22,7 +22,7 @@ coerce Cells,
 		Class::MOP::load_class('Spreadsheet::Simple::Cell');
 		return [ 
 			map {
-				Spreadsheet::Simple::Cell->new(data => $_) 
+				Spreadsheet::Simple::Cell->new(value => $_) 
 			} @$_ 
 		] 
 	};

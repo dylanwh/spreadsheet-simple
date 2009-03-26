@@ -1,11 +1,11 @@
 package Spreadsheet::Simple::Sheet;
 use Moose;
+use MooseX::AttributeHelpers;
 
 our $VERSION = '0.01';
 our $AUTHORITY = 'cpan:DHARDISON';
 
 use MooseX::Types::Moose 'Str';
-use MooseX::AttributeHelpers;
 
 use Spreadsheet::Simple::Types 'Rows';
 use Spreadsheet::Simple::Row;
@@ -38,5 +38,44 @@ sub new_row {
 
 	return $row;
 }
+
+sub get_cell {
+	my ($self, $row, $col) = @_;
+	my $r = $self->get_row($row);
+
+	return undef if not $r;
+	return $r->get_cell($col);
+}
+
+sub set_cell {
+	my ($self, $row, $col, $cell) = @_;
+	$self->get_row($row)->set_cell($col, $cell);
+}
+
+sub _format_column_ref {
+	my ($self, $col) = @_;
+	my @buffer;
+
+	while ($col > 25) {
+		push @buffer, chr(($col % 26) + ord('A'));
+		$col = ($col / 26) - 1;
+	}
+	push @buffer, chr($col + ord('A'));
+
+	return reverse join('', @buffer);
+}
+
+sub _parse_column_ref {
+	my ($self, $col) = @_;
+	my $sum = 0;
+
+	foreach my $char (split(//, uc $col)) {
+		$sum = 26 * $sum + 1 + ord ($char) - ord ('A');
+	}
+
+	return $sum - 1;
+}
+
+
 
 1;
