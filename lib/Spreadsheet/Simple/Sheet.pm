@@ -32,6 +32,19 @@ has 'rows' => (
     },
 );
 
+around 'get_row' => sub {
+	my ($method, $self, $idx) = @_;
+	my $row = $self->$method($idx);
+	
+	return $row if defined $row;
+
+	$row = Spreadsheet::Simple::Row->new(cells => []);
+	$self->set_row($idx, $row);
+
+	return $row;
+};
+
+
 sub new_row {
 	my ($self, @args) = @_;
 	my $row = Spreadsheet::Simple::Row->new(@args);
@@ -41,10 +54,7 @@ sub new_row {
 
 sub get_cell {
 	my ($self, $row, $col) = @_;
-	my $r = $self->get_row($row);
-
-	return undef if not $r;
-	return $r->get_cell($col);
+	return $self->get_row($row)->get_cell($col);
 }
 
 sub set_cell {

@@ -22,4 +22,17 @@ has 'cells' => (
     },
 );
 
+around 'get_cell' => sub {
+	my ($method, $self, $idx) = @_;
+	my $cell = $self->$method($idx);
+
+	return $cell if defined $cell;
+
+	$cell = Spreadsheet::Simple::Cell->new( value => undef );
+	
+	$self->set_cell($idx, $cell);
+
+	return $cell;
+};
+
 1;
