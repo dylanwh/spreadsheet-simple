@@ -6,6 +6,12 @@ our $AUTHORITY = 'cpan:DHARDISON';
 
 use namespace::clean -except => 'meta';
 
+has 'format' => (
+    is      => 'ro',
+    isa     => 'Str',
+    default => 'Excel',
+);
+
 has 'reader' => (
     is         => 'ro',
     does       => 'Spreadsheet::Simple::Role::Reader',
@@ -20,11 +26,33 @@ has 'writer' => (
     handles    => ['write_file'],
 );
 
+sub _build_reader {
+	my ($self) = @_;
+	my $fmt = $self->format;
+
+	Class::MOP::load_class("Spreadsheet::Simple::Reader::$fmt");
+
+	return "Spreadsheet::Simple::Reader::$fmt"->new;
+}
+
+sub _build_writer {
+	my ($self) = @_;
+	my $fmt = $self->format;
+
+	Class::MOP::load_class("Spreadsheet::Simple::Writer::$fmt");
+
+	return "Spreadsheet::Simple::Writer::$fmt"->new;
+}
+
+
+
 1;
+
+__END__
 
 =head1 NAME
 
-Spreadsheet::Simple- Simple spreadsheet API.
+Spreadsheet::Simple - Simple spreadsheet API.
 
 =head1 VERSION
 
