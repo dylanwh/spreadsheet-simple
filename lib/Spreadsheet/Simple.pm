@@ -1,7 +1,7 @@
 package Spreadsheet::Simple;
 use Moose;
 
-our $VERSION = '0.01';
+our $VERSION   = '0.01';
 our $AUTHORITY = 'cpan:DHARDISON';
 
 use namespace::clean -except => 'meta';
@@ -27,24 +27,22 @@ has 'writer' => (
 );
 
 sub _build_reader {
-	my ($self) = @_;
-	my $fmt = $self->format;
+    my ($self) = @_;
+    my $fmt = $self->format;
 
-	Class::MOP::load_class("Spreadsheet::Simple::Reader::$fmt");
+    Class::MOP::load_class("Spreadsheet::Simple::Reader::$fmt");
 
-	return "Spreadsheet::Simple::Reader::$fmt"->new;
+    return "Spreadsheet::Simple::Reader::$fmt"->new;
 }
 
 sub _build_writer {
-	my ($self) = @_;
-	my $fmt = $self->format;
+    my ($self) = @_;
+    my $fmt = $self->format;
 
-	Class::MOP::load_class("Spreadsheet::Simple::Writer::$fmt");
+    Class::MOP::load_class("Spreadsheet::Simple::Writer::$fmt");
 
-	return "Spreadsheet::Simple::Writer::$fmt"->new;
+    return "Spreadsheet::Simple::Writer::$fmt"->new;
 }
-
-
 
 1;
 

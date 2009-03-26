@@ -1,0 +1,29 @@
+Source: libspreadsheet-simple-perl
+Section: perl
+Priority: optional
+Build-Depends: debhelper (>= 5),
+               libmodule-build-perl,
+               perl-modules (>= 5.10),
+               libtest-exception-perl (>= 0.27),
+               libnamespace-clean-perl (>= 0.08),
+               libspreadsheet-parseexcel-perl (>= 0.49),
+               libmoosex-attributehelpers-perl (>= 0.14),
+               libmoose-perl (>= 0.68),
+               libmoosex-types-perl (>= 0.08)
+Build-Depends-Indep: perl (>= 5.6.10-12)
+Maintainer: Dylan William Hardison <dylan@hardison.net>
+Standards-Version: 3.8.0
+Homepage: http://search.cpan.org/dist/Spreadsheet-Simple/
+
+Package: libspreadsheet-simple-perl
+Architecture: all
+Depends: ${perl:Depends}, ${misc:Depends},
+         libnamespace-clean-perl (>= 0.08),
+         libspreadsheet-parseexcel-perl (>= 0.49),
+         libmoosex-attributehelpers-perl (>= 0.14),
+         libmoose-perl (>= 0.68),
+         libmoosex-types-perl (>= 0.08)
+Description: Simple spreadsheet API.
+ Simple spreadsheet API.
+ .
+ This description was automagically extracted from the module by dh-make-perl.

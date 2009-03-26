@@ -1,0 +1,25 @@
+This is the debian package for the Spreadsheet-Simple module.
+It was created by Dylan William Hardison <dylan@hardison.net> using dh-make-perl.
+
+It was downloaded from http://search.cpan.org/dist/Spreadsheet-Simple/
+
+This copyright info was automatically extracted from the perl module.
+It may not be accurate, so you better check the module sources
+if you don't want to get into legal troubles.
+
+The upstream author is: Dylan William Hardison <dylan@hardison.net>.
+
+
+Copyright 2009 Dylan William Hardison, Infinity Interactive. All rights reserved.
+
+This program is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.
+
+Perl is distributed under your choice of the GNU General Public License or
+the Artistic License.  On Debian GNU/Linux systems, the complete text of the
+GNU General Public License can be found in `/usr/share/common-licenses/GPL'
+and the Artistic Licence in `/usr/share/common-licenses/Artistic'.
+
+
+The Debian packaging is (C) 2009, Dylan William Hardison <dylan@hardison.net> and
+is licensed under the same terms as the software itself (see above).
