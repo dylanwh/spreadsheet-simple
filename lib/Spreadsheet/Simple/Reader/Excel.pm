@@ -58,7 +58,7 @@ sub _map_cell {
 	my ($self, $cell) = @_;
 
 	return Spreadsheet::Simple::Cell->new(
-		value => $cell->value
+		value => eval { $cell->value },
 	);
 }
 
