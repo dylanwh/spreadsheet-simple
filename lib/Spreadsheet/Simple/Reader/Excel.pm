@@ -70,11 +70,6 @@ sub map_cell {
 
 	return Spreadsheet::Simple::Cell->new(
 		value => eval { $cell->value } || undef,
-		color => [
-			map { hex } unpack("A2A2A2",
-				$self->color_to_rgb($cell->{Format}{Font}{Color})
-			)
-		],
 	);
 }
 

@@ -4,8 +4,11 @@ use Moose;
 our $VERSION = '0.01';
 our $AUTHORITY = 'cpan:DHARDISON';
 
-use MooseX::Types::Moose 'Maybe', 'Str', 'Int';
+use MooseX::Types -declare => [qw( RGB )];
+use MooseX::Types::Moose qw( Maybe Str Int );
 use MooseX::Types::Structured 'Tuple';
+
+subtype RGB, as Tuple[Int, Int, Int];
 
 use namespace::clean -except => 'meta';
 
@@ -16,8 +19,8 @@ has 'value' => (
 );
 
 has 'color' => (
-    is         => 'ro',
-    isa        => Maybe [ Tuple [ Int, Int, Int ] ],
+    is  => 'ro',
+    isa => Maybe [RGB],
 );
 
 1;
