@@ -16,8 +16,9 @@ has 'value' => (
 );
 
 has 'color' => (
-	is => 'ro',
-	isa => Maybe[Tuple[Int, Int, Int]],
+    is         => 'ro',
+    isa        => Maybe [ Tuple [ Int, Int, Int ] ],
+    auto_deref => 1,
 );
 
 1;

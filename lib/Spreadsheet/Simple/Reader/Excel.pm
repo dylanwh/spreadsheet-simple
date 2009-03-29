@@ -72,7 +72,7 @@ sub map_cell {
 		value => eval { $cell->value } || undef,
 		color => [
 			map { hex } unpack("A2A2A2",
-				$self->color_to_rgb($cell->{Font}{Color})
+				$self->color_to_rgb($cell->{Format}{Font}{Color})
 			)
 		],
 	);
