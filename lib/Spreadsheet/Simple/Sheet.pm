@@ -62,6 +62,24 @@ sub set_cell {
 	$self->get_row($row)->set_cell($col, $cell);
 }
 
+sub get_cell_value {
+	my ($self, $row, $col) = @_;
+
+	return $self->get_cell($row, $col)->value;
+}
+
+sub set_cell_value {
+	my ($self, $row, $col, $val) = @_;
+
+	return $self->set_cell(
+		$row, 
+		$col, 
+		Spreadsheet::Simple::Cell->new(
+			value => $val,
+		)
+	);
+}
+
 sub _format_column_ref {
 	my ($self, $col) = @_;
 	my @buffer;

@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
-use Test::More tests => 8;
+use Test::More tests => 12;
 
 use Spreadsheet::Simple::Document;
 
@@ -24,8 +24,15 @@ is($sheet->get_cell(0, 0)->value, '1', 'get_cell(0, 0)');
 is($sheet->get_cell(1, 4)->value, '10', 'get_cell(1, 4)');
 is($sheet->get_cell(5, 5)->value, undef, 'get_cell(5, 5)');
 
+is($sheet->get_cell_value(0, 0), '1', 'get_cell_value(0, 0)');
+is($sheet->get_cell_value(1, 2), '8', 'get_cell_value(1, 2)');
+is($sheet->get_cell_value(6, 6), undef, 'get_cell_value(6, 6)');
+
 $sheet->get_cell(10, 10)->value('pants');
 is($sheet->get_cell(10, 10)->value, 'pants', 'get_cell(10, 10)');
+
+$sheet->set_cell_value(20, 20, 'pants');
+is($sheet->get_cell(20, 20)->value, 'pants', 'get_cell(20, 20)');
 
 sub frob {
 	local $_ = shift;
