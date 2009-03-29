@@ -19,42 +19,42 @@ sub read_file {
 	my ($self, $file) = @_;
 	my $wb = Spreadsheet::ParseExcel::Workbook->Parse($file);
 
-	return $self->_map_document($wb);
+	return $self->map_document($wb);
 }
 
-sub _map_document {
+sub map_document {
 	my ($self, $wb) = @_;
 	
 	return Spreadsheet::Simple::Document->new(
 		sheets => [
-			map { $self->_map_sheet($_) } @{ $wb->{Worksheet} }
+			map { $self->map_sheet($_) } @{ $wb->{Worksheet} }
 		],
 	);
 }
 
-sub _map_sheet {
+sub map_sheet {
 	my ($self, $ws) = @_;
 
 	return Spreadsheet::Simple::Sheet->new(
 		name => $ws->{Name},
 		rows => [
-			map { $self->_map_row($_) } @{ $ws->{Cells} }
+			map { $self->map_row($_) } @{ $ws->{Cells} }
 		],
 	);
 
 }
 
-sub _map_row {
+sub map_row {
 	my ($self, $row) = @_;
 
 	return Spreadsheet::Simple::Row->new(
 		cells => [
-			map { $self->_map_cell($_) } @{ $row }
+			map { $self->map_cell($_) } @{ $row }
 		],
 	);
 }
 
-sub _map_cell {
+sub map_cell {
 	my ($self, $cell) = @_;
 
 	return Spreadsheet::Simple::Cell->new(
