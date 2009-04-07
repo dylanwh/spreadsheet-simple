@@ -2,8 +2,9 @@
 use strict;
 use warnings;
 
-use Test::More tests => 1 + 7*2;
+use Test::More tests => 1 + 7*4;
 use Test::Exception;
+use Path::Class 'file';
 
 BEGIN { use_ok "Spreadsheet::Simple" }
 
@@ -12,6 +13,8 @@ my $ss = Spreadsheet::Simple->new( format => 'Excel' );
 my @files  = (
 	't/data/100-excel.xls',
 	't/data/100-excel2.xls',
+	file('t/data/100-excel.xls'),
+	file('t/data/100-excel2.xls'),
 );
 
 foreach my $file (@files) {

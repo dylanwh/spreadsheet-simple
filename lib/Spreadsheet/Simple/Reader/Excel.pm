@@ -28,7 +28,7 @@ sub _build_parser { Spreadsheet::ParseExcel->new }
 
 sub read_file {
 	my ($self, $file) = @_;
-	my $wb = $self->parse($file);
+	my $wb = $self->parse("$file");
 
 	return $self->map_document($wb);
 }
