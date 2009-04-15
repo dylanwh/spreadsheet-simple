@@ -14,7 +14,7 @@ my $builder = Module::Build->new(
     requires => {
         'Spreadsheet::ParseExcel'  => '0.49',
         'MooseX::Types'            => '0.08',
-        'MooseX::AttributeHelpers' => '0.14',
+        'MooseX::AttributeHelpers' => '0.17',
         'namespace::clean'         => '0.08',
         'Moose'                    => '0.68',
     },

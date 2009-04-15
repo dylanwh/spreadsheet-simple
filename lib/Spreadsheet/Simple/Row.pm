@@ -41,4 +41,15 @@ sub get_cell_value {
 	return $self->get_cell($col)->value;
 }
 
+sub get_cell_values {
+	my ($self, @cols) = @_;
+	return map { $self->get_cell_value($_) } @cols;
+}
+
+sub cell_values {
+	my ($self) = @_;
+
+	return map { $_->value } $self->cells
+}
+
 1;
