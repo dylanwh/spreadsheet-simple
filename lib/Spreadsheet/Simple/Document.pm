@@ -18,8 +18,9 @@ has 'sheets' => (
     lazy_build  => 1,
     auto_deref => 1,
     provides => {
-    	'push' => 'add_sheet',
-    	'get'  => 'get_sheet',
+    	'push'  => 'add_sheet',
+    	'get'   => 'get_sheet',
+    	'count' => 'sheet_count',
     },
 );
 

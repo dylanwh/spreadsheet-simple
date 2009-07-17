@@ -17,8 +17,9 @@ has 'cells' => (
     required   => 1,
     coerce     => 1,
     provides   => {
-    	get => 'get_cell',
-    	set => 'set_cell',
+    	'get'   => 'get_cell',
+    	'set'   => 'set_cell',
+    	'count' => 'cell_count',
     },
 );
 
@@ -29,7 +30,7 @@ around 'get_cell' => sub {
 	return $cell if defined $cell;
 
 	$cell = Spreadsheet::Simple::Cell->new( value => undef );
-	
+
 	$self->set_cell($col, $cell);
 
 	return $cell;
@@ -37,7 +38,7 @@ around 'get_cell' => sub {
 
 sub get_cell_value {
 	my ($self, $col) = @_;
-	
+
 	return $self->get_cell($col)->value;
 }
 

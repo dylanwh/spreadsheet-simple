@@ -26,16 +26,17 @@ has 'rows' => (
     auto_deref => 1,
     required   => 1,
     provides   => {
-    	'push' => 'add_row',
-    	'get'  => 'get_row',
-    	'set'  => 'set_row',
+    	'push'  => 'add_row',
+    	'get'   => 'get_row',
+    	'set'   => 'set_row',
+    	'count' => 'row_count',
     },
 );
 
 around 'get_row' => sub {
 	my ($method, $self, $idx) = @_;
 	my $row = $self->$method($idx);
-	
+
 	return $row if defined $row;
 
 	$row = Spreadsheet::Simple::Row->new(cells => []);
@@ -72,8 +73,8 @@ sub set_cell_value {
 	my ($self, $row, $col, $val) = @_;
 
 	return $self->set_cell(
-		$row, 
-		$col, 
+		$row,
+		$col,
 		Spreadsheet::Simple::Cell->new(
 			value => $val,
 		)
