@@ -28,14 +28,20 @@ sub _build_parser { Spreadsheet::ParseExcel->new }
 
 sub read_file {
 	my ($self, $file) = @_;
+
+	(-e $file)
+	    || confess "File ($file) does not exist";
+
 	my $wb = $self->parse("$file");
+
+	return unless defined $wb;
 
 	return $self->map_document($wb);
 }
 
 sub map_document {
 	my ($self, $wb) = @_;
-	
+
 	return Spreadsheet::Simple::Document->new(
 		sheets => [
 			map { $self->map_sheet($_) } @{ $wb->{Worksheet} }

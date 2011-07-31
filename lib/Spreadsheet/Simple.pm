@@ -44,6 +44,14 @@ sub _build_writer {
     return "Spreadsheet::Simple::Writer::$fmt"->new;
 }
 
+sub new_document {
+    my ($self, @args) = @_;
+
+    Class::MOP::load_class("Spreadsheet::Simple::Document");
+
+    Spreadsheet::Simple::Document->new( @args );
+}
+
 1;
 
 __END__
